@@ -1,0 +1,188 @@
+<div ng-controller="headerCtrl">
+    <div class="headerTop row">
+        <div class="container">
+            <a data-toggle="modal" data-target="#modal-register">Đăng ký</a>
+            <a data-toggle="modal" data-target="#modal-login">Đăng nhập</a>
+        </div>
+    </div>
+
+    <div class="headerMiddle">
+        <div class="container">
+            <div class="col-md-3 col-sm-12 col-xs-12 mid-1">
+                <a href="/"><img ng-src="{{urlImage}}{{logo.company_logo}}" class="img"></a>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6 mid-2" ng-controller="searchprodCtrl">
+                <form method="post" ng-submit="submit()" autocomplete="off">
+                    <div class="input-group">
+                        <input ng-model="keysearchs" type="text" class="form-control" placeholder="Tìm kiếm..." required>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit" value="Submit"><span class="fa fa-search"></span></button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-6 mid-3 mini-cart">
+                <ngcart-summary></ngcart-summary>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/">TRANG CHỦ</a></li>
+                    <li><a href="/gioi-thieu">GIỚI THIỆU</a></li>
+                    <li class="dropdown">
+                        <a href="/tat-ca-san-pham" class="dropdown-toggle" data-toggle="dropdown" ng-click="changename('Tất cả sản phẩm')">SẢN PHẨM</a>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="lv1 in lv1category">
+                                <a href='/danh-muc/{{lv1.seo_vi}}-{{lv1.id}}.1' ng-click="changename(lv1.name_vi)">{{lv1.name_vi}}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="/dich-vu">DỊCH VỤ</a></li>
+                    <li><a href="/tin-tuc">TIN TỨC</a></li>
+                    <li><a href="/khuyen-mai">KHUYẾN MÃI</a></li>
+                    <li><a href="/lien-he">LIÊN HỆ</a></li>
+                </ul>             
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <!-- Modal Login -->
+    <div class="modal fade modal-ext" id="modal-login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <!--Content-->
+            <div class="modal-content">
+
+                <!--Header-->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3><i class="fa fa-user"></i> Đăng nhập </h3>
+                </div>
+
+                <!--Body-->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <i class="fa fa-envelope prefix"></i>
+                            <label for="form2">Email : </label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" id="form2" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <i class="fa fa-lock prefix"> </i> 
+                            <label for="form3">Mật khẩu : </label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="password" id="form3" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="text-xs-center">
+                        <button class="btn btn-primary">Đăng nhập </button>
+                    </div>
+                </div>
+
+                <!--Footer-->
+                <div class="modal-footer">
+                    <div class="options">
+                        <p>Bạn chưa có tài khoản ? <a href="#">Đăng ký</a></p>
+                        <p>Bạn quên <a href="#">mật khẩu ?</a></p>
+                    </div>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+            <!--/.Content-->
+        </div>
+    </div>
+
+    <!-- Modal Register -->
+    <div class="modal fade modal-ext" id="modal-register" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <!--Content-->
+            <div class="modal-content">
+                <!--Header-->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3><i class="fa fa-user"></i> Đăng ký :</h3>
+                    <a href="" class="btn-floating btn-fb btn-small"><i class="fa fa-facebook"></i></a>
+                    <a href="" class="btn-floating btn-tw btn-small"><i class="fa fa-twitter"></i></a>
+                    <a href="" class="btn-floating btn-gplus btn-small"><i class="fa fa-google-plus"></i></a>
+                    <a href="" class="btn-floating btn-li btn-small"><i class="fa fa-linkedin"></i></a>
+                    <a href="" class="btn-floating btn-git btn-small"><i class="fa fa-github"></i></a>
+                </div>
+                <!--Body-->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <i class="fa fa-envelope prefix"></i>
+                            <label for="form2">Email : </label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" id="form2" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <i class="fa fa-lock prefix"> </i> 
+                            <label for="form3">Mật khẩu : </label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="password" id="form3" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <i class="fa fa-lock prefix"> </i> 
+                            <label for="form4">Nhập lại mật khẩu : </label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="password" id="form4" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="text-xs-center">
+                        <button class="btn btn-primary">Đăng ký</button>
+
+                        <fieldset class="form-group">
+                            <input type="checkbox" id="checkbox1">
+                            <label for="checkbox1">Đồng ý để nhận những tin mới</label>
+                        </fieldset>
+                    </div>
+                </div>
+                <!--Footer-->
+                <div class="modal-footer">
+                    <div class="options">
+                        <p>Bạn đã có tài khoản ? <a href="#">Đăng nhập</a></p>
+                    </div>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+            <!--/.Content-->
+        </div>
+    </div>
+
+</div>

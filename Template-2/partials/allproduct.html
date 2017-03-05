@@ -1,0 +1,64 @@
+<div class="container">
+    <div class="col-md-3">
+        <div id='flyout_menu'>
+            <ul class="fl-menu">
+                <h2><i class="fa fa-bars"> </i>&nbsp; DANH MỤC SẢN PHẨM</h2>
+            </ul>
+            <!--<div class="ngloading" ng-show="loading"><img src="../data1/loading.gif" alt=""/></div>-->   
+            <ul class="fl-mn">
+                <li ng-repeat="lv1 in lv1category">
+                    <a href='/danh-muc/{{lv1.seo_vi}}-{{lv1.id}}.1' ng-click="changename(lv1.name_vi)"><h1>{{lv1.name_vi}}</h1></a>
+                </li>
+            </ul>
+        </div>
+        <br>
+        <div id="right-menu">
+            <ul class="rt-menu-2">
+                <h1><strong>SẢN PHẨM MỚI NHẤT</strong></h1>
+            </ul>
+            <div class="ngloading" ng-show="loading"><img src="../images/loading.gif"  alt="FruitShop"/></div>
+            <ul class="rt-mn">
+                <li ng-repeat="item in prodNew| orderBy:'random'|limitTo:3" class="block-content">
+                    <div class="right-mn">
+                        <img ng-src="{{urlImage + item.image}}" class="img img-responsive">
+                        <ngcart-addtocart id="{{item.id}}" name="{{item.name_vi}}" nameseo="{{item.name_seo_vi}}" price="{{(1 - item.price_off_percent / 100) * item.price_vn}}" seles="{{item.price_off_percent}}" quantity="1" img="{{urlImage}}{{item.image}}" imgname="{{item.image}}">Đặt hàng</ngcart-addtocart>
+                        <a href="/chi-tiet/{{item.name_seo_vi}}-{{item.id}}">Chi tiết</a>
+                    </div>
+                    <h5 ng-show="item.price_vn !== 0">
+                        <span ng-if="item.price_off_percent !== 0">{{item.price_vn|currency:number:0}}</span>
+                        {{(1 - item.price_off_percent / 100)*item.price_vn|currency:number:0}}
+                    </h5>
+                    <a href="/chi-tiet/{{item.name_seo_vi}}-{{item.id}}" style="font-size: 12pt">{{item.name_vi}}</a>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="titles"><p>{{namecatalog}}</p></div>
+        <div class="row prodseles" style="padding: 0 15px">
+            <h1>
+                <strong> </strong>
+            </h1>
+            <div class="ngloading" ng-show="loading"><img src="../images/loading.gif"  alt="FruitShop"/></div>
+            <div class="col-md-4 col-sm-4 col-xs-6 item" dir-paginate="item in allproduct | itemsPerPage: pageSize" current-page="currentPage">
+                <div class="prods-1">
+                    <span ng-if="item.price_off_percent !== 0" class="product-item-sale"></span>
+                    <img ng-src="{{urlImage + item.image}}" class="img img-responsive">
+                    <ngcart-addtocart id="{{item.id}}" name="{{item.name_vi}}" nameseo="{{item.name_seo_vi}}" price="{{(1 - item.price_off_percent / 100) * item.price_vn}}" seles="{{item.price_off_percent}}" quantity="1" img="{{urlImage}}{{item.image}}" imgname="{{item.image}}">Đặt hàng</ngcart-addtocart>
+                    <a href="/chi-tiet/{{item.name_seo_vi}}-{{item.id}}">Chi tiết</a>
+                </div>
+                <h5 ng-show="item.price_vn !== 0">
+                    <span ng-if="item.price_off_percent !== 0">{{item.price_vn|currency:number:0}}</span>
+                    {{(1 - item.price_off_percent / 100)*item.price_vn|currency:number:0}}
+                </h5>
+                <a href="/chi-tiet/{{item.name_seo_vi}}-{{item.id}}" style="font-size: 12pt">{{item.name_vi}}</a>
+            </div>
+        </div>
+        <br>
+        <div class="row text-center">
+            <dir-pagination-controls boundary-links="true" template-url="template/dirPagination.tpl.html"></dir-pagination-controls>
+        </div>
+    </div>
+</div>
+<br><br>
